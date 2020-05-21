@@ -23,16 +23,15 @@
 </ul>
 
 <h3>Add a New Comment</h3>
-<%= form_for(@comment = Comment.new) do |f| %>
-  <%= f.label :content %>
-  <%= f.text_field :content %><br /><br />
-  <%= f.label "Username" %>
-  <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => true %><br /><br />
-  <%= f.label "New User:" %>
-  <%= f.fields_for :user, @comment.build_user do |user| %>
-    <%= user.text_field :username %>
-  <% end %><br />
-  <br />
-  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
-  <%= f.submit %>
+<%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.fields_for :user, User.new do |user_field| %>
+        <%= user_field.label :username %>
+        <%= user_field.text_field :username %>
+    <% end %>
+    
+    <%= f.label :content, "New Content" %>
+    <%= f.text_area :content %>
+    <%= f.submit "Create Comment" %>
 <% end %>
