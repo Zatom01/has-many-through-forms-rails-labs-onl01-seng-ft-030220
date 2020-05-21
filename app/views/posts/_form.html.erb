@@ -6,8 +6,8 @@
   <%= f.label :content %>
   <%= f.text_area :content %><br>
   
-  <strong><%= f.label :categories %></strong><br /><br />
-  Choose a category:<br />
+  Choose category: 
+  
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br /><br />
   Or create a new category:<br />
   <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
