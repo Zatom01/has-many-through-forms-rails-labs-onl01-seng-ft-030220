@@ -1,5 +1,6 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+
 <em>Category</em>
 <ul><% @post.categories.each do |category| %>
   <li><%= category.name %></li>
@@ -7,16 +8,20 @@
 </ul>
 <br />
 <br />
-<em>Comments</em>
+
+<h2>Comments</h2>
 <% @post.comments.each do |comment| %>
   <p><%= comment.user.username %> says: <%= comment.content %></p>
 <% end %>
-<p>Users</p>
+
+<h2>Users</h2>
+
 <ul>
 <% @post.users.uniq.each do |user| %>
   <li><%= link_to user.username, user_path(user) %></li>
 <% end %>
 </ul>
+
 <h3>Add a New Comment</h3>
 <%= form_for(@comment = Comment.new) do |f| %>
   <%= f.label :content %>
